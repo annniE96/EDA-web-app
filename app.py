@@ -4,12 +4,12 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import seaborn as sns 
 
-# Set Page Configuration
+
 st.set_page_config(page_title="ML Dataset Analysis", layout="wide")
 
 st.title("Machine Learning Dataset Analysis and Visualization")
 
-# Upload dataset
+#dataset uploading--
 st.sidebar.header("Upload Your Dataset")
 uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type=['csv'])
 df = pd.DataFrame()
@@ -26,12 +26,12 @@ if not df.empty:
     st.sidebar.write(f"**Rows:** {df.shape[0]}")
     st.sidebar.write(f"**Columns:** {df.shape[1]}")
     
-    # Column Selector
+    ##selection of columns--->
     selected_columns = st.sidebar.multiselect("Select Columns to Display", df.columns.tolist(), default=df.columns.tolist())
     st.subheader("Selected Data Preview")
     st.dataframe(df[selected_columns])
 
-    # Handling Missing Values
+    #code to handle missing values-->
     st.subheader("Handling Missing Values")
     missing_values = df.isnull().sum()
     missing_values = missing_values[missing_values > 0]
@@ -61,7 +61,7 @@ if not df.empty:
     else:
         st.success("No missing values found in the dataset.")
 
-    # Feature: Create New Column
+    #creating new columns with the help of existing ones--
     st.subheader("Create New Column Based on Existing Ones")
     numeric_columns = df.select_dtypes(include=[np.number]).columns.tolist()
     
@@ -91,11 +91,11 @@ if not df.empty:
     else:
         st.warning("At least two numeric columns are required to create a new column.")
 
-    # Dataset Statistics
+    # Dataset Statistics using describe
     st.subheader("Dataset Summary")
     st.write(df.describe().T)
 
-    # Data Types
+    # Data Types 
     st.subheader("Column Data Types")
     st.write(df.dtypes)
 
